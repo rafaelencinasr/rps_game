@@ -39,27 +39,74 @@ function playerPlay(){
     return selection;
 };
 
+/*
 let computerSelection = computerPlay(); // Storing each selection for both the computer and the player.
 let playerSelection = playerPlay();
+*/
 
-console.log(computerSelection);
-console.log(playerSelection);
-
-function playRound(playerSelection, computerSelection){
+function playRound(){
 // un if con varias condiciones 
-    let a = computerSelection;
-    let b = playerSelection;
-    // Todas las condiciones donde la computadora gana
+    let a = computerPlay();
+    let b = playerPlay();
+    console.log(a);
+    console.log(b);
+    let winner;
+    // All the conditions where the computer wins
+if (b != "Invalid input"){
     if(a == "Rock" && b == "Scissors" || a == "Paper" && b == "Rock" || a == "Scissors" && b == "Paper"){
         console.log("Computer wins, GGEZ");
+        winner = "Computer";
     }
-    else if(a==b){
+    else if(a==b){                      // Checks if it was a tie
         console.log("TIE");
+        winner = "Tie";
     }
-    else {
+    else {                              // If the computer didn't win and it wasn't a tie, player wins.
         console.log("Player wins");
+        winner = "Player";
     }
-        
+        return winner;
+    }
+else(playRound());
     }        
 
-console.log(playRound(playerSelection, computerSelection));
+
+function fiveRounds(){                      // Creates a loop for 5 games, Best of 5 Rules.
+    let roundWinner;
+    let computerWonRounds=0;            
+    let playerWonRounds=0;
+    for(let i = 1; i <= 5; i++) {
+
+        console.log("Round: "+i);
+        roundWinner = playRound();          // Calls for a round to be played
+        if(roundWinner == "Computer"){
+            computerWonRounds++;            // If the computer won that round, a win is added to its score
+        }
+        else if(roundWinner == "Player"){   // If the player won that round, a win is added to its score.
+            playerWonRounds++;
+        }
+        else{};
+    };
+
+    console.log(`Player won ${playerWonRounds} times.`)         // Display both scores at the end
+    console.log(`Computer won ${computerWonRounds} times.`)
+    if(computerWonRounds>playerWonRounds){                      // Check who has 
+        console.log("Computer wins!")
+    }
+    else if(computerWonRounds==playerWonRounds){
+        console.log("DAMN, TIED AFTER 5 ROUNDS")
+    }
+    else {
+        console.log("Player wins!")
+    }
+   
+}
+
+let letsPlay = prompt("Do you want to play 5 rounds of Rock, Paper, Scissors against the almighty random Computer? Y/N")
+if(letsPlay == "Y"){
+    fiveRounds();
+}
+else {
+    alert("Goodbye");
+}
+// console.log("Result: " + playRound());
